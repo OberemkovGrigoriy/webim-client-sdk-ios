@@ -748,15 +748,15 @@ final private class HistoryMetaInformationStoragePreferences: HistoryMetaInforma
     }
     
     func set(revision: String?) {
+        guard let revision =  revision else {
+            return
+        }
+        
         if var userDefaults = UserDefaults.standard.dictionary(forKey: userDefaultsKey) {
             userDefaults[UserDefaultsMainPrefix.HISTORY_REVISION.rawValue] = revision
             UserDefaults.standard.set(userDefaults,
                                       forKey: userDefaultsKey)
         } else {
-            guard let revision =  revision else {
-                return
-            }
-            
             UserDefaults.standard.setValue([UserDefaultsMainPrefix.HISTORY_REVISION.rawValue: revision],
                                            forKey: userDefaultsKey)
         }
